@@ -33,13 +33,18 @@ Body: must include "email" and "name"
 GET - http://127.0.0.1/shorten/<user_id>
 
 ## Load Balancer
-The load balancer used in this system is HAProxy with the `RoundRobin` strategy.
+The load balancer used in this system is HAProxy with the `RoundRobin` strategy.<br>
+Guide links: 
+- [HAProxy Configuration](https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/#:~:text=There%20are%20four%20essential%20sections,routed%20to%20your%20backend%20servers.)
+- [How to Use HAProxy](https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps)
+- [HAProxy Manual](https://www.haproxy.org/download/1.4/doc/configuration.txt)
 
 ## Cache
-`flask_caching` has been used with the `SimpleCache` cache type.
+`flask_caching` has been used with the `SimpleCache` cache type. [Flask Caching Docs](https://flask-caching.readthedocs.io/en/latest/)
 
 ## Data Base
-MongoDB has been used as the DB and its collections have been sharded by their ID with the `hashed` strategy.
+MongoDB has been used as the DB and its collections have been sharded by their ID with the `hashed` strategy.<br>
+How it was built: [Deploy a Sharded Cluser](https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/)
 
 ## Requirements
 - Create front-end with React.
