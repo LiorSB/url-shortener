@@ -1,7 +1,7 @@
 # URL Shortener
 
-## Reason
-Shortening URLs can be handy where there is a limit for the number of characters, for example: chat boxes of twitter, instagram, facebook and other platforms.
+## How to Run
+While in the directory enter the following line: `flask run -p <port>`
 
 ## API Endpoints for Requests
 ### Generate a short URL-
@@ -45,6 +45,9 @@ Guide links:
 ## Data Base
 MongoDB has been used as the DB and its collections have been sharded by their ID with the `hashed` strategy.<br>
 How it was built: [Deploy a Sharded Cluser](https://www.mongodb.com/docs/manual/tutorial/deploy-shard-cluster/)
+
+## Reason
+Shortening URLs can be handy where there is a limit for the number of characters, for example: chat boxes of twitter, instagram, facebook and other platforms.
 
 ## Requirements
 - Create front-end with React.
