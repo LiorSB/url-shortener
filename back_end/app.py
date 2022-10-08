@@ -5,7 +5,7 @@ from flask_caching import Cache
 
 # MONGODB_HOST = 'mongodb://localhost:27017/'
 MONGODB_HOST = 'mongodb://localhost:27117/'
-DB_NAME = 'url_shortner'
+DB_NAME = 'url_shortener'
 URL_COLLECTION_NAME = 'url'
 USER_COLLECTION_NAME = 'user'
 
@@ -29,7 +29,7 @@ mongo_client.admin.command({
     }
 })
 
-url_shortner_db = mongo_client[DB_NAME]
+url_shortener_db = mongo_client[DB_NAME]
 
-url_collection = url_shortner_db[URL_COLLECTION_NAME]
-user_collection = url_shortner_db[USER_COLLECTION_NAME]
+url_collection = url_shortener_db[URL_COLLECTION_NAME]
+user_collection = url_shortener_db[USER_COLLECTION_NAME]
