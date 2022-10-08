@@ -1,4 +1,4 @@
-# URL Shortner
+# URL Shortener
 
 ## Reason
 Shortening URLs can be handy where there is a limit for the number of characters, for example: chat boxes of twitter, instagram, facebook and other platforms.
