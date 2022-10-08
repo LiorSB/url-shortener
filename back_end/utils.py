@@ -4,9 +4,15 @@ import hashlib
 BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
-def encode_b62(number):
+def encode_b62(number: int) -> str:
     """
     Encode a positive number into Base X and return the string.
+
+    Args:
+        number (int): The number to encode.
+
+    Returns:
+        str: Encoded string in base 62
     """
     if number == 0:
         return BASE62[0]
@@ -26,6 +32,17 @@ def encode_b62(number):
 
 
 def hash_to_specified_length(string: str, hash_length: int = 6) -> str:
+    """
+    Generate a hash from a string to a given length.
+
+    Args:
+        string (str): The string to hash.
+        hash_length (int, optional): The length of the hash.
+            Defaults to 6.
+
+    Returns:
+        str: Hashed string.
+    """
     string_md5 = hashlib.md5(string.encode()).digest()
     string_int = int.from_bytes(string_md5, byteorder='little')
     string_b62 = encode_b62(string_int)
