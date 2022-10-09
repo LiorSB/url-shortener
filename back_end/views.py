@@ -210,9 +210,58 @@ def sign_up() -> Response:
 
     user_id = user_collection.insert_one(user_dictionary).inserted_id
 
-    return redirect(
-        urljoin(BASE_URL, f'shorten/{user_id}'),
-        HTTPStatus.FOUND
+    # return redirect(
+    #     urljoin(BASE_URL, f'shorten/{user_id}'),
+    #     HTTPStatus.FOUND
+    # )
+    return make_response(
+        jsonify({
+            'redirect_url': urljoin(BASE_URL, f'shorten/{user_id}')
+        }),
+        HTTPStatus.OK
+    )
+
+
+@app.post('/log_in')
+def log_in() -> Response:
+    request_body = request.json
+
+    # In case of no body.
+    if not request_body:
+        return make_response(
+            jsonify({
+                'error': 'No valid JSON data has been received.'
+            }),
+            HTTPStatus.BAD_REQUEST
+        )
+
+    # In case there is no email in the body.
+    if not (email := request_body.get('email')):
+        return make_response(
+            jsonify({
+                'error': 'email key is missing from JSON data.'
+            }),
+            HTTPStatus.BAD_REQUEST
+        )
+
+    # In case the email already exists in the DB.
+    if user_collection.find_one({'email': email}):
+        return make_response(
+            jsonify({
+                'error': 'This email has already signed up!'
+            }),
+            HTTPStatus.CONFLICT
+        )
+
+    # return redirect(
+    #     urljoin(BASE_URL, f'shorten/{user_collection["_id"].inserted_id}'),
+    #     HTTPStatus.FOUND
+    # )
+    return make_response(
+        jsonify({
+            'redirect_url': urljoin(BASE_URL, f'shorten/{user_collection["_id"].inserted_id}')
+        }),
+        HTTPStatus.OK
     )
 
 
