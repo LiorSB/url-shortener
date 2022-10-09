@@ -12,7 +12,7 @@ export const getTinyUrl = async () => {
 export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
     console.log("postCreateTinyUrl")
     try {
-        const url = `http://localhost:8000/create-tiny-url`;
+        const url = `http://127.0.0.1/shorten`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -20,7 +20,7 @@ export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                srcUrl: originalUrl,
+                url: originalUrl,
             })
         });
         const responseJson = await response.json();
