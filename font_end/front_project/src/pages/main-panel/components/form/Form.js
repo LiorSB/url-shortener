@@ -3,7 +3,7 @@ import {useState} from "react";
 
 export const Form = ({title,inputLabel,buttonLabel,func}) => {
     const [name, setName] = useState("");
-    const [tinyUrlObj, setTinyUrlObj] = useState({tinyUrl:'',srcUrl:"",creationDate:""});
+    const [tinyUrlObj, setTinyUrlObj] = useState({short_url:'',original_url:"",expiration_date:"",creation_date:""});
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -33,10 +33,11 @@ export const Form = ({title,inputLabel,buttonLabel,func}) => {
         {/*<button className="button-submit-form" onClick={() => postFunc()}>(get request)</button>*/}
     </div>
         <div className={"answer-container"}>
-        {tinyUrlObj.tinyUrl.length>0 && <div className="tiny-url-container">
-            <span>Tiny Url : {tinyUrlObj.tinyUrl}</span>
-            <span>Original Url : {tinyUrlObj.srcUrl}</span>
-            <span>Creation Time : {tinyUrlObj.creationDate}</span>
+        {tinyUrlObj.short_url.length>0 && <div className="tiny-url-container">
+            <span>Tiny Url : {tinyUrlObj.short_url}</span>
+            <span>Original Url : {tinyUrlObj.original_url}</span>
+            <span>Creation Time : {tinyUrlObj.creation_date}</span>
+            <span>Expiration Time : {tinyUrlObj.expiration_date}</span>
         </div>}
         </div>
 

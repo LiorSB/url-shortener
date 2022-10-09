@@ -30,24 +30,24 @@ export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
         console.log(err)
     }
 }
-export const postRedirectBySendTinyUrl = async (tinyUrl,setTinyUrlObj) => {
-    console.log("postRedirectBySendTinyUrl")
-    try {
-        const url = `http://localhost:8000/get-original-url`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                tinyUrl: tinyUrl,
-            })
-        });
-        const responseJson = await response.json();
-        console.log(responseJson,"responseJson");
-        setTinyUrlObj(responseJson)
-    }catch (err){
-        console.log(err)
-    }
-}
+// export const postRedirectBySendTinyUrl = async (tinyUrl,setTinyUrlObj) => {
+//     console.log("postRedirectBySendTinyUrl")
+//     try {
+//         const url = `http://localhost:8000/get-original-url`;
+//         const response = await fetch(url, {
+//             method: 'POST',
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 tinyUrl: tinyUrl,
+//             })
+//         });
+//         const responseJson = await response.json();
+//         console.log(responseJson,"responseJson");
+//         setTinyUrlObj(responseJson)
+//     }catch (err){
+//         console.log(err)
+//     }
+// }
