@@ -3,6 +3,8 @@ import {Form} from "./components/form/Form";
 import './MainPanel.css'
 import {postCreateTinyUrl} from "../../html-request";
 import {useState} from "react";
+import {Register} from "./components/register/Register";
+import {Login} from "./components/login/Login";
 
 export const MainPanel = () => {
     const [user, setUser] = useState({email: "", name: ""})
@@ -22,15 +24,19 @@ export const MainPanel = () => {
             <button onClick={() => updateModalStatus(2)} className={"button-menu-style"}>Register</button>
         </div>}
 
-             {modalStatus === 1 &&  <div className={"forms-wrapper"}>
-                <Form title="Log-in Page" inputLabel={" Email:  "}
-                      buttonLabel={"Log-in"} func={postCreateTinyUrl}/>
-            </div>}
+             {modalStatus === 1 &&  <Login/>
+                 // <div className={"forms-wrapper"}>
+                // <Form title="Log-in Page" inputLabel={" Email:  "}
+                //       buttonLabel={"Log-in"} func={postCreateTinyUrl}/>
+            // </div>
+    }
 
-        {modalStatus === 2 && <div className={"forms-wrapper"}>
-            <Form isRegister title="Register Page" inputLabel={"Email:  "}
-                  buttonLabel={"Register"} func={postCreateTinyUrl}/>
-        </div>}
+        {modalStatus === 2 && <Register/>
+            // <div className={"forms-wrapper"}>
+            // <Form isRegister title="Register Page" inputLabel={"Email:  "}
+            //       buttonLabel={"Register"} func={postCreateTinyUrl}/>
+        // </div>
+    }
 
         {(modalStatus === 0 ) ? <div className={"forms-wrapper"}>
             <Form title="Enter a long URL to make a TinyUrl" inputLabel={"Enter Original URL: "}
