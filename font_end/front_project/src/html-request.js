@@ -56,7 +56,7 @@ export const postSignUp = async (name,email) => {
 export const postLogin = async (email) => {
     console.log("start post log_in")
     try {
-        const url = `http://127.0.0.1/log_in`;
+        const url = `http://127.0.0.1:5000/log_in`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -74,24 +74,3 @@ export const postLogin = async (email) => {
     }
 }
 
-// export const postRedirectBySendTinyUrl = async (tinyUrl,setTinyUrlObj) => {
-//     console.log("postRedirectBySendTinyUrl")
-//     try {
-//         const url = `http://localhost:8000/get-original-url`;
-//         const response = await fetch(url, {
-//             method: 'POST',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 tinyUrl: tinyUrl,
-//             })
-//         });
-//         const responseJson = await response.json();
-//         console.log(responseJson,"responseJson");
-//         setTinyUrlObj(responseJson)
-//     }catch (err){
-//         console.log(err)
-//     }
-// }
