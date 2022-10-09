@@ -11,7 +11,14 @@ POST - http://127.0.0.1/shorten/<user_id>
 Body: must include "url"
 ```json
 {
-  "url" "www.hello.com"
+  "url": "www.hello.com"
+}
+```
+
+Response:<br>
+```json
+{
+    "short_url": "http://127.0.0.1/3GSJrD"
 }
 ```
 
@@ -24,13 +31,33 @@ POST - http://127.0.0.1/sign_up
 Body: must include "email" and "name"
 ```json
 {
-  "email": "lior@walla.com"
+  "email": "lior@walla.com",
   "name": "lior"
 }
 ```
 
 ### Get user's URLs -
 GET - http://127.0.0.1/shorten/<user_id>
+
+Response:<br>
+```json
+{
+  "url_data": [
+    {
+      "short_url:" "http://127.0.0.1/5gDZEF",
+      "original_url": "https://github.com/LiorSB/url-shortener/tree/feature/backend-db-ds",
+      "creation_date": "2022-10-08T23:14:47.558657",
+      "expiration_date": "2027-10-07T23:14:47.558657"
+    },
+    {
+      "short_url": "http://127.0.0.1/1bqOQw",
+      "original_url: "https://www.w3schools.com/python/python_mongodb_find.asp",
+      "creation_date": "2022-10-08T23:56:03.839908",
+      "expiration_date": "2027-10-07T23:56:03.839908"
+    }
+  ]
+}
+```
 
 ## Load Balancer
 The load balancer used in this system is HAProxy with the `RoundRobin` strategy.<br>
