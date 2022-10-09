@@ -36,6 +36,16 @@ Body: must include "email" and "name"
 }
 ```
 
+### Log in -
+POST - http://127.0.0.1/log_in
+
+Body: must include "email"
+```json
+{
+  "email": "lior@walla.com",
+}
+```
+
 ### Get user's URLs -
 GET - http://127.0.0.1/shorten/<user_id>
 
