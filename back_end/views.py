@@ -100,7 +100,10 @@ def shorten_url(user_id: str = None) -> Response:
 
     return make_response(
         jsonify({
-            'short_url': urljoin(BASE_URL, url_hash)
+            'short_url': urljoin(BASE_URL, url_hash),
+            'original_url': url,
+            'creation_date': current_time.isoformat(),
+            'expiration_date': expiration_date.isoformat()
         }),
         HTTPStatus.OK
     )
