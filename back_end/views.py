@@ -211,7 +211,7 @@ def sign_up() -> Response:
     user_id = user_collection.insert_one(user_dictionary).inserted_id
 
     return redirect(
-        urljoin(BASE_URL, user_id),
+        urljoin(BASE_URL, f'shorten/{user_id}'),
         HTTPStatus.FOUND
     )
 
@@ -237,11 +237,20 @@ def get_user_urls(user_id: str = None) -> Response:
             HTTPStatus.FORBIDDEN
         )
 
-    url_dictionaries = list(url_collection.find({'user_id': user_id}))
+    url_dictionaries = url_collection.find({'user_id': user_id})
+
+    user_urls = [
+        {
+            'short_url': urljoin(BASE_URL, url_dictionary['_id']),
+            'original_url': url_dictionary['original_url'],
+            'creation_date': url_dictionary['creation_date'],
+            'expiration_date': url_dictionary['expiration_date'],
+        } for url_dictionary in url_dictionaries
+    ]
 
     return make_response(
         jsonify({
-            'url_data': url_dictionaries
+            'url_data': user_urls
         }),
         HTTPStatus.OK
     )
