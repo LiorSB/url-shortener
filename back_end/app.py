@@ -15,8 +15,8 @@ ZNODE_NAME = 'views'
 ELECTION_PATH = '/election'
 
 
-leader_election = LeaderElection(ZOOKEEPER_ADDRESS, ZNODE_NAME, ELECTION_PATH)
-leader_election.register()
+# leader_election = LeaderElection(ZOOKEEPER_ADDRESS, ZNODE_NAME, ELECTION_PATH)
+# leader_election.register()
 
 app = Flask(__name__)
 CORS(app)
