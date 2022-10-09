@@ -8,12 +8,12 @@ export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (isRegister){
-            func(email,name, setTinyUrlObj).then()
-        }
-        else{
+        // if (isRegister){
+        //     func(email,name, setTinyUrlObj).then()
+        // }
+        // else{
             func(name, setTinyUrlObj).then()
-        }
+        // }
     }
 
     // const postFunc = () => {
@@ -29,19 +29,19 @@ export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
                 <input
                     className="form-input-style"
                     type="text"
-                    value={email}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </div>
-            {isRegister && <div>
-                <label>Name : </label>
-                <input
-                    className="form-input-style"
-                    type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-            </div>}
+            </div>
+            {/*{isRegister && <div>*/}
+            {/*    <label>Name : </label>*/}
+            {/*    <input*/}
+            {/*        className="form-input-style"*/}
+            {/*        type="text"*/}
+            {/*        value={email}*/}
+            {/*        onChange={(e) => setName(e.target.value)}*/}
+            {/*    />*/}
+            {/*</div>}*/}
 
             <button type="submit" className="button-submit-form">{buttonLabel}</button>
         </form>
