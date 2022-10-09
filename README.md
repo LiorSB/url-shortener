@@ -51,7 +51,7 @@ Response:<br>
     },
     {
       "short_url": "http://127.0.0.1/1bqOQw",
-      "original_url: "https://www.w3schools.com/python/python_mongodb_find.asp",
+      "original_url": "https://www.w3schools.com/python/python_mongodb_find.asp",
       "creation_date": "2022-10-08T23:56:03.839908",
       "expiration_date": "2027-10-07T23:56:03.839908"
     }
