@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 import validators
 from flask import request, make_response, redirect, jsonify, Response
 from .utils import hash_to_specified_length
-from .app import app, url_collection, user_collection, cache
+from .app import app, cache#url_collection, user_collection,
 
 
 MAX_URL_LENGTH = 2048
@@ -74,16 +74,16 @@ def shorten_url(user_id: str = None) -> Response:
 
     # Generate a hash for the short URL until there is one that doesn't exist in the DB.
     # Keep append +1 till success.
-    while url_dictionary := url_collection.find_one({'_id': url_hash}):
-        expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
+    # while url_dictionary := url_collection.find_one({'_id': url_hash}):
+    #     expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
 
-        # In case a URL already exists, but it has already expired delete it and break the loop.
-        if current_time >= expiration_date:
-            url_collection.delete_one(url_dictionary)
-            break
+    #     # In case a URL already exists, but it has already expired delete it and break the loop.
+    #     if current_time >= expiration_date:
+    #         url_collection.delete_one(url_dictionary)
+    #         break
 
-        url_hash = hash_to_specified_length(f'{url}{counter}')
-        counter += 1
+    #     url_hash = hash_to_specified_length(f'{url}{counter}')
+    #     counter += 1
 
     years_till_expired = PREMIUM_YEARS_TILL_EXPIRED if user_id else REGULAR_YEARS_TILL_EXPIRED
     expiration_date = current_time + timedelta(days=years_till_expired)
@@ -96,14 +96,16 @@ def shorten_url(user_id: str = None) -> Response:
         'user_id': user_id
     }
 
-    url_collection.insert_one(url_dictionary)
+    # url_collection.insert_one(url_dictionary)
 
-    return make_response(
+    response = make_response(
         jsonify({
             'short_url': urljoin(BASE_URL, url_hash)
         }),
         HTTPStatus.OK
     )
+
+    return response
 
 
 @app.get('/<suffix_hash>')
@@ -125,27 +127,27 @@ def redirect_url(suffix_hash: str) -> Response:
         )
 
     # In case the suffix_hash doesn't exist in the DB, return 404 message.
-    if not (url_dictionary := url_collection.find_one({'_id': suffix_hash})):
-        return make_response(
-            jsonify({
-                'error': 'Unable to find URL to redirect to.'
-            }),
-            HTTPStatus.NOT_FOUND
-        )
+    # if not (url_dictionary := url_collection.find_one({'_id': suffix_hash})):
+    #     return make_response(
+    #         jsonify({
+    #             'error': 'Unable to find URL to redirect to.'
+    #         }),
+    #         HTTPStatus.NOT_FOUND
+    #     )
 
     expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
     current_time = datetime.now()
 
     # In case the URL has expired, return 410 message.
-    if current_time >= expiration_date:
-        url_collection.delete_one(url_dictionary)
+    # if current_time >= expiration_date:
+    #     url_collection.delete_one(url_dictionary)
 
-        return make_response(
-            jsonify({
-                'error': 'The shortened URL has expired.'
-            }),
-            HTTPStatus.GONE
-        )
+    #     return make_response(
+    #         jsonify({
+    #             'error': 'The shortened URL has expired.'
+    #         }),
+    #         HTTPStatus.GONE
+    #     )
 
     url = url_dictionary['original_url']
     cache.set(suffix_hash, url)
@@ -194,13 +196,13 @@ def sign_up() -> Response:
         )
 
     # In case the email already exists in the DB.
-    if user_collection.find_one({'email': email}):
-        return make_response(
-            jsonify({
-                'error': 'This email has already signed up!'
-            }),
-            HTTPStatus.CONFLICT
-        )
+    # if user_collection.find_one({'email': email}):
+    #     return make_response(
+    #         jsonify({
+    #             'error': 'This email has already signed up!'
+    #         }),
+    #         HTTPStatus.CONFLICT
+    #     )
 
     user_dictionary = {
         'email': email,
@@ -208,7 +210,7 @@ def sign_up() -> Response:
         'creation_date': datetime.now().isoformat()
     }
 
-    user_id = user_collection.insert_one(user_dictionary).inserted_id
+    user_id = 'a'#user_collection.insert_one(user_dictionary).inserted_id
 
     return redirect(
         urljoin(BASE_URL, user_id),
@@ -237,7 +239,7 @@ def get_user_urls(user_id: str = None) -> Response:
             HTTPStatus.FORBIDDEN
         )
 
-    url_dictionaries = list(url_collection.find({'user_id': user_id}))
+    url_dictionaries = 'a'#list(url_collection.find({'user_id': user_id}))
 
     return make_response(
         jsonify({
