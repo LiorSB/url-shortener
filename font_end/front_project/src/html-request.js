@@ -12,7 +12,7 @@ export const getTinyUrl = async () => {
 export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
     console.log("postCreateTinyUrl")
     try {
-        const url = `http://127.0.0.1/shorten`;
+        const url = `http://127.0.0.1:5000/shorten`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {

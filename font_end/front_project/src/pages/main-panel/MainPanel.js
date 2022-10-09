@@ -21,8 +21,9 @@ export const MainPanel = () => {
             <button onClick={() => updateModalStatus(1)} className={"button-menu-style"}>Login</button>
             <button onClick={() => updateModalStatus(2)} className={"button-menu-style"}>Register</button>
         </div>}
+
              {modalStatus === 1 &&  <div className={"forms-wrapper"}>
-                <Form title="Log-in Page" inputLabel={"Insert Email:  "}
+                <Form title="Log-in Page" inputLabel={" Email:  "}
                       buttonLabel={"Log-in"} func={postCreateTinyUrl}/>
             </div>}
 

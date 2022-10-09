@@ -8,12 +8,12 @@ export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // if (isRegister){
-        //     func(email,name, setTinyUrlObj).then()
-        // }
-        // else{
+        if (isRegister){
+            func(email,name, setTinyUrlObj).then()
+        }
+        else{
             func(name, setTinyUrlObj).then()
-        // }
+        }
     }
 
     // const postFunc = () => {
@@ -24,7 +24,7 @@ export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
    <div className="form-container">
         <span className="form-title-style">{title}</span>
         <form className="form-style" onSubmit={handleSubmit}>
-            <div>
+            {isRegister &&  <div>
                 <label>{inputLabel}</label>
                 <input
                     className="form-input-style"
@@ -32,16 +32,16 @@ export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
+            </div>}
+            <div>
+                <label>Email : </label>
+                <input
+                    className="form-input-style"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
             </div>
-            {/*{isRegister && <div>*/}
-            {/*    <label>Name : </label>*/}
-            {/*    <input*/}
-            {/*        className="form-input-style"*/}
-            {/*        type="text"*/}
-            {/*        value={email}*/}
-            {/*        onChange={(e) => setName(e.target.value)}*/}
-            {/*    />*/}
-            {/*</div>}*/}
 
             <button type="submit" className="button-submit-form">{buttonLabel}</button>
         </form>
