@@ -1,51 +1,31 @@
 import './Form.css'
 import {useState} from "react";
 
-export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+export const Form = ({title,buttonLabel,func,isRegister=false}) => {
+    const [originalUrl, setOriginalUrl] = useState("");
     const [tinyUrlObj, setTinyUrlObj] = useState({short_url:'',original_url:"",expiration_date:"",creation_date:""});
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (isRegister){
-            func(email,name, setTinyUrlObj).then()
-        }
-        else{
-            func(name, setTinyUrlObj).then()
-        }
+            func(originalUrl, setTinyUrlObj).then()
     }
 
-    // const postFunc = () => {
-    //     getTinyUrl().then()
-    // }
-    return<div>
-
+    return <div>
    <div className="form-container">
         <span className="form-title-style">{title}</span>
         <form className="form-style" onSubmit={handleSubmit}>
-            {isRegister &&  <div>
-                <label>{inputLabel}</label>
-                <input
-                    className="form-input-style"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </div>}
             <div>
                 <label>Email : </label>
                 <input
                     className="form-input-style"
                     type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={originalUrl}
+                    onChange={(e) => setOriginalUrl(e.target.value)}
                 />
             </div>
 
             <button type="submit" className="button-submit-form">{buttonLabel}</button>
         </form>
-        {/*<button className="button-submit-form" onClick={() => postFunc()}>(get request)</button>*/}
     </div>
         <div className={"answer-container"}>
         {tinyUrlObj.short_url.length>0 && <div className="tiny-url-container">

@@ -11,13 +11,16 @@ export const Login = () => {
     return <div className="form-container">
         <span className="form-title-style">Log-in Page</span>
         <form className="form-style" onSubmit={handleSubmit}>
-                <label>Email : </label>
-                <input
-                    className="form-input-style"
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+               <div>
+                   <label>Email : </label>
+                   <input
+                       className="form-input-style"
+                       type="text"
+                       value={email}
+                       onChange={(e) => setEmail(e.target.value)}
+                   />
+               </div>
+
             <button type="submit" className="button-submit-form">Log-in</button>
         </form>
     </div>

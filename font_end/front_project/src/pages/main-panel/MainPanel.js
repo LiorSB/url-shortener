@@ -24,25 +24,13 @@ export const MainPanel = () => {
             <button onClick={() => updateModalStatus(2)} className={"button-menu-style"}>Register</button>
         </div>}
 
-             {modalStatus === 1 &&  <Login/>
-                 // <div className={"forms-wrapper"}>
-                // <Form title="Log-in Page" inputLabel={" Email:  "}
-                //       buttonLabel={"Log-in"} func={postCreateTinyUrl}/>
-            // </div>
-    }
+             {modalStatus === 1 &&  <Login/>}
 
-        {modalStatus === 2 && <Register/>
-            // <div className={"forms-wrapper"}>
-            // <Form isRegister title="Register Page" inputLabel={"Email:  "}
-            //       buttonLabel={"Register"} func={postCreateTinyUrl}/>
-        // </div>
-    }
+        {modalStatus === 2 && <Register/>}
 
         {(modalStatus === 0 ) ? <div className={"forms-wrapper"}>
             <Form title="Enter a long URL to make a TinyUrl" inputLabel={"Enter Original URL: "}
                   buttonLabel={"Make Tiny URL! (post request)"} func={postCreateTinyUrl}/>
-            {/*<Form title="Enter a tiny URL to get the original url" inputLabel={"Enter Tiny URL: "}*/}
-            {/*      buttonLabel={"Get Original URL! (post request)"} func={postRedirectBySendTinyUrl}/>*/}
         </div> : <button onClick={() => updateModalStatus(0)} className={"link"}>Continue without login</button>}
     </div>
 }
