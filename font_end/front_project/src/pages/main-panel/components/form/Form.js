@@ -1,13 +1,19 @@
 import './Form.css'
 import {useState} from "react";
 
-export const Form = ({title,inputLabel,buttonLabel,func}) => {
+export const Form = ({title,inputLabel,buttonLabel,func,isRegister=false}) => {
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [tinyUrlObj, setTinyUrlObj] = useState({short_url:'',original_url:"",expiration_date:"",creation_date:""});
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        func(name, setTinyUrlObj).then()
+        if (isRegister){
+            func(email,name, setTinyUrlObj).then()
+        }
+        else{
+            func(name, setTinyUrlObj).then()
+        }
     }
 
     // const postFunc = () => {
@@ -23,10 +29,19 @@ export const Form = ({title,inputLabel,buttonLabel,func}) => {
                 <input
                     className="form-input-style"
                     type="text"
-                    value={name}
+                    value={email}
                     onChange={(e) => setName(e.target.value)}
                 />
             </div>
+            {isRegister && <div>
+                <label>Name : </label>
+                <input
+                    className="form-input-style"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>}
 
             <button type="submit" className="button-submit-form">{buttonLabel}</button>
         </form>

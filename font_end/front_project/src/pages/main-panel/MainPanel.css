@@ -4,10 +4,30 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 30px;
-
 }
+
 .forms-wrapper{
     width: 100%;
     display: flex;
     justify-content: space-around;
 }
+.control-panel{
+    display: flex;
+    gap: 20px;
+    margin-top:80px;
+}
+.button-menu-style{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 30px;
+    border: solid 1px black;
+    padding:16px
+}
+
+.link{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: cornflowerblue;
+}
+
