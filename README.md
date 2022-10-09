@@ -5,7 +5,7 @@ While in the directory enter the following line: `flask run -p <port>`
 
 ## API Endpoints for Requests
 ### Generate a short URL-
-POST - http://127.0.0.1/shorten
+POST - http://127.0.0.1/shorten <br>
 POST - http://127.0.0.1/shorten/<user_id>
 
 Body: must include "url"
