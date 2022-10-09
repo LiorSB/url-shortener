@@ -1,5 +1,3 @@
-import sys
-import time
 from kazoo.client import KazooClient, KazooState
 from kazoo.protocol.states import EventType
 
@@ -20,8 +18,10 @@ class LeaderElection():
     def connection_status_listener(state):
         if state == KazooState.LOST:
             print('The session to zookeeper was lost.')
+
         elif state == KazooState.SUSPENDED:
             print('Disconnected from zookeeper.')
+
         else:
             print('Connected to zookeeper.')
 
@@ -41,17 +41,19 @@ class LeaderElection():
             sequence=True,
             makepath=True
         )
-        self.znode_name = new_node_path.split('/')[-1]
 
+        self.znode_name = new_node_path.split('/')[-1]
         self.elect_leader()
 
     def elect_leader(self):
         print('leader_election: start')
         children = self.zookeeper.get_children(path=self.election_namespace)
         sorted_children = sorted(children)
+
         if sorted_children[0] == self.znode_name:
             self._leader = True
             print(f'LEADER: {self.node_name} (znode: {self.znode_name})')
+
         else:
             print(f'Follower: (znode: {self.znode_name})')
             predecessor_index = sorted_children.index(self.znode_name) - 1
@@ -66,6 +68,7 @@ class LeaderElection():
                     # watch registration failed
                     self.elect_leader()
                     return
+
                 if event is not None:
                     if event.type == EventType.DELETED:
                         print(f'Event is {event}')
@@ -79,24 +82,3 @@ class LeaderElection():
 
     def __repr__(self):
         return 'Leader ' if self._leader else f'{self.node_name}({self.znode_name})'
-
-
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print('Use leader_election.py <app_name>')
-        sys.exit(-1)
-
-    app_name = sys.argv[1]
-    leaderElection: LeaderElection = LeaderElection('localhost:2181', app_name, '/election')
-    # leaderElection.clean_zookeeper()
-
-    leaderElection.register()
-
-    try:
-        time.sleep(300)
-
-    finally:
-        print('\nNode interrupted')
-        leaderElection.zookeeper.stop()
-        leaderElection.zookeeper.close()
-        print('\nNode is dead')
