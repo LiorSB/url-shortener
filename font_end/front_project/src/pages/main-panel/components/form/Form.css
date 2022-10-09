@@ -1,0 +1,48 @@
+.form-container{
+    margin-top: 40px;
+    background: white;
+    border-radius: 8px;
+    border: solid 1px lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    justify-content: start;
+    padding: 10px;
+}
+.form-style{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-title-style{
+    width: auto;
+    border-bottom: solid black 1px;
+    padding-block: 6px;
+}
+.form-input-style{
+    width: 300px;
+    padding:5px
+}
+.button-submit-form{
+    background: cornflowerblue;
+    border: lightgray solid 1px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    padding: 20px;
+}
+.tiny-url-container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: solid 1px cornflowerblue;
+    border-radius: 4px;
+    color: cornflowerblue;
+}
+.answer-container{
+    border-radius: 4px;
+    margin-top: 10px;
+    background: white;
+}
