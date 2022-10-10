@@ -213,13 +213,10 @@ def sign_up() -> Response:
 
     user_id = user_collection.insert_one(user_dictionary).inserted_id
 
-    # return redirect(
-    #     urljoin(BASE_URL, f'shorten/{user_id}'),
-    #     HTTPStatus.FOUND
-    # )
     return make_response(
         jsonify({
-            'redirect_url': urljoin(BASE_URL, f'shorten/{user_id}')
+            'user_id': str(user_id),
+            **user_dictionary
         }),
         HTTPStatus.OK
     )
@@ -248,21 +245,20 @@ def log_in() -> Response:
         )
 
     # In case the email already exists in the DB.
-    if user_collection.find_one({'email': email}):
+    if not (user_dictionary := user_collection.find_one({'email': email})):
         return make_response(
             jsonify({
-                'error': 'This email has already signed up!'
+                'error': 'The email does not exist'
             }),
-            HTTPStatus.CONFLICT
+            HTTPStatus.NOT_FOUND
         )
 
-    # return redirect(
-    #     urljoin(BASE_URL, f'shorten/{user_collection["_id"].inserted_id}'),
-    #     HTTPStatus.FOUND
-    # )
     return make_response(
         jsonify({
-            'redirect_url': urljoin(BASE_URL, f'shorten/{user_collection["_id"].inserted_id}')
+            'uer_id': str(user_dictionary['_id'].inserted_id),
+            'name': user_dictionary['name'],
+            'email': user_dictionary['email'],
+            'creation_date': user_dictionary['creation_date'],
         }),
         HTTPStatus.OK
     )
