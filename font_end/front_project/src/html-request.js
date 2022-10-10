@@ -31,7 +31,7 @@ export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
     }
 }
 
-export const postSignUp = async (name,email) => {
+export const postSignUp = async (name,email,setUser) => {
     console.log("start postSignUp")
     try {
         const url = `http://127.0.0.1:5000/sign_up`;
@@ -48,12 +48,13 @@ export const postSignUp = async (name,email) => {
         });
         const responseJson = await response.json();
         console.log(responseJson,"responseJson");
+        setUser(responseJson)
     }catch (err){
         console.log(err)
     }
 }
 
-export const postLogin = async (email) => {
+export const postLogin = async (email,setUser) => {
     console.log("start post log_in")
     try {
         const url = `http://127.0.0.1:5000/log_in`;
@@ -69,6 +70,7 @@ export const postLogin = async (email) => {
         });
         const responseJson = await response.json();
         console.log(responseJson,"responseJson");
+        setUser(responseJson)
     }catch (err){
         console.log(err)
     }

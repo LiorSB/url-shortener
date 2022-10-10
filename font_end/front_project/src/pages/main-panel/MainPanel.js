@@ -7,7 +7,9 @@ import {Register} from "./components/register/Register";
 import {Login} from "./components/login/Login";
 
 export const MainPanel = () => {
-    const [user, setUser] = useState({email: "", name: ""})
+    const [user, setUser] = useState({
+        _id: "", email: "", name: "", creation_date: ""
+    })
     const [modalStatus, setModalStatus] = useState(1)
     // modal status enum:
     // 0 : continue without login
@@ -23,12 +25,12 @@ export const MainPanel = () => {
             <button onClick={() => updateModalStatus(1)} className={"button-menu-style"}>Login</button>
             <button onClick={() => updateModalStatus(2)} className={"button-menu-style"}>Register</button>
         </div>}
+        {user.name.length>0 && <div>Hello {user.name}</div>}
+        {modalStatus === 1 && <Login setUser={setUser}/>}
 
-             {modalStatus === 1 &&  <Login/>}
+        {modalStatus === 2 && <Register setUser={setUser}/>}
 
-        {modalStatus === 2 && <Register/>}
-
-        {(modalStatus === 0 ) ? <div className={"forms-wrapper"}>
+        {(modalStatus === 0) ? <div className={"forms-wrapper"}>
             <Form title="Enter a long URL to make a TinyUrl" inputLabel={"Enter Original URL: "}
                   buttonLabel={"Make Tiny URL! (post request)"} func={postCreateTinyUrl}/>
         </div> : <button onClick={() => updateModalStatus(0)} className={"link"}>Continue without login</button>}

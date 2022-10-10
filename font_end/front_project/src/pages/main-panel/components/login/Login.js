@@ -1,12 +1,12 @@
 import {useState} from "react";
 import {postLogin} from "../../../../html-request";
 
-export const Login = () => {
+export const Login = (setUser) => {
     const [email, setEmail] = useState("")
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("log-in")
-        postLogin(email).then()
+        postLogin(email,setUser).then()
     }
     return <div className="form-container">
         <span className="form-title-style">Log-in Page</span>
