@@ -30,6 +30,27 @@ export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
         console.log(err)
     }
 }
+export const postUserCreateTinyUrl = async (userId,originalUrl,setTinyUrlObj) => {
+    console.log("start postCreateTinyUrl")
+    try {
+        const url = `http://127.0.0.1:5000/shorten/userId`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: originalUrl,
+            })
+        });
+        const responseJson = await response.json();
+        console.log(responseJson,"responseJson");
+        setTinyUrlObj(responseJson)
+    }catch (err){
+        console.log(err)
+    }
+}
 
 export const postSignUp = async (name,email,setUser) => {
     console.log("start postSignUp")

@@ -31,8 +31,7 @@ export const MainPanel = () => {
         {modalStatus === 2 && <Register setUser={setUser}/>}
 
         {(modalStatus === 0) ? <div className={"forms-wrapper"}>
-            <Form title="Enter a long URL to make a TinyUrl" inputLabel={"Enter Original URL: "}
-                  buttonLabel={"Make Tiny URL! (post request)"} func={postCreateTinyUrl}/>
+            <Form user={user} />
         </div> : <button onClick={() => updateModalStatus(0)} className={"link"}>Continue without login</button>}
     </div>
 }

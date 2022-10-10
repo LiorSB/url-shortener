@@ -1,18 +1,23 @@
 import './Form.css'
 import {useState} from "react";
+import {postCreateTinyUrl, postUserCreateTinyUrl} from "../../../../html-request";
 
-export const Form = ({title,buttonLabel,func,isRegister=false}) => {
+export const Form = ({user}) => {
     const [originalUrl, setOriginalUrl] = useState("");
     const [tinyUrlObj, setTinyUrlObj] = useState({short_url:'',original_url:"",expiration_date:"",creation_date:""});
-
     const handleSubmit = (event) => {
         event.preventDefault();
-            func(originalUrl, setTinyUrlObj).then()
+        if (user._id.length>0){
+            postUserCreateTinyUrl(user._id,originalUrl, setTinyUrlObj).then()
+        }
+         else{
+            postCreateTinyUrl(originalUrl, setTinyUrlObj).then()
+        }
     }
 
     return <div>
    <div className="form-container">
-        <span className="form-title-style">{title}</span>
+        <span className="form-title-style">Enter a long URL to make a TinyUrl</span>
         <form className="form-style" onSubmit={handleSubmit}>
             <div>
                 <label>Email : </label>
@@ -24,7 +29,7 @@ export const Form = ({title,buttonLabel,func,isRegister=false}) => {
                 />
             </div>
 
-            <button type="submit" className="button-submit-form">{buttonLabel}</button>
+            <button type="submit" className="button-submit-form">Make Tiny URL! </button>
         </form>
     </div>
         <div className={"answer-container"}>
