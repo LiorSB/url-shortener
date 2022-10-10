@@ -1,7 +1,6 @@
 import {Header} from "./components/header/Header";
 import {Form} from "./components/form/Form";
 import './MainPanel.css'
-import {postCreateTinyUrl} from "../../html-request";
 import {useState} from "react";
 import {Register} from "./components/register/Register";
 import {Login} from "./components/login/Login";
