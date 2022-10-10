@@ -1,14 +1,37 @@
-export const getTinyUrl = async () => {
+
+
+// export const getUserUrls= async (user,setUserUrl)=>{
+//     try {
+//         const url = `http://127.0.0.1:5000/shorten/${user.user_id}`;
+//         const response = await fetch(url)
+//         const responseJson = await response.json();
+//         console.log(responseJson,"responseJson");
+//         setUserUrl(responseJson)
+//     }catch (err){
+//         console.log(err)
+//     }
+// }
+
+export const getUserUrls = async (userId,setUserUrl) => {
+    console.log("start postCreateTinyUrl")
     try {
-        const url = `http://localhost:8000/tiny`;
-        const response = await fetch(url)
+        const url = `http://127.0.0.1:5000/shorten/${userId}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
         const responseJson = await response.json();
         console.log(responseJson,"responseJson");
-        // setTinyUrlObj(responseJson["name"])
+        console.log(responseJson["url_data"],"responseJson[\"url_data\"]");
+        setUserUrl(responseJson["url_data"])
     }catch (err){
         console.log(err)
     }
 }
+
 export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
     console.log("start postCreateTinyUrl")
     try {

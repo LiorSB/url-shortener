@@ -24,7 +24,9 @@
     border: solid 1px black;
     padding:16px
 }
-
+.clickable{
+    cursor: pointer;
+}
 .link{
     background: none;
     border: none;
@@ -32,3 +34,18 @@
     color: cornflowerblue;
 }
 
+.user-url-wrapper{
+    border: 2px solid cornflowerblue;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.user-url-container{
+    border: dashed 1px lightgray;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    text-align: left;
+    gap: 5px;
+}

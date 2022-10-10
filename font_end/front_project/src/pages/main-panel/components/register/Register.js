@@ -31,7 +31,6 @@ export const Register = ({setModalStatus, setUser}) => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
-
             <button type="submit" className="button-submit-form">Register</button>
         </form>
     </div>
