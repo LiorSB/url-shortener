@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 30px;
+    gap: 30px;
 }
 
 .forms-wrapper{

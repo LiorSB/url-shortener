@@ -1,13 +1,14 @@
 import {useState} from "react";
 import {postSignUp} from "../../../../html-request";
 
-export const Register = (setUser) => {
+export const Register = ({setModalStatus, setUser}) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("registering")
-        postSignUp(name,email,setUser).then()
+        setModalStatus(0)
+        postSignUp(name, email, setUser).then()
     }
     return <div className="form-container">
         <span className="form-title-style">Register Page</span>
