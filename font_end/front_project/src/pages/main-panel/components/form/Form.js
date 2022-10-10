@@ -20,7 +20,7 @@ export const Form = ({user}) => {
         <span className="form-title-style">Enter a long URL to make a TinyUrl</span>
         <form className="form-style" onSubmit={handleSubmit}>
             <div>
-                <label>Email : </label>
+                <label>Original URL : </label>
                 <input
                     className="form-input-style"
                     type="text"
