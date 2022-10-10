@@ -257,7 +257,7 @@ def log_in() -> Response:
 
     return make_response(
         jsonify({
-            'uer_id': str(user_dictionary['_id']),
+            'user_id': str(user_dictionary['_id']),
             'name': user_dictionary['name'],
             'email': user_dictionary['email'],
             'creation_date': user_dictionary['creation_date'],
