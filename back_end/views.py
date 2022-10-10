@@ -211,12 +211,14 @@ def sign_up() -> Response:
         'creation_date': datetime.now().isoformat()
     }
 
-    user_id = user_collection.insert_one(user_dictionary).inserted_id
+    user_id = user_collection.insert_one(user_dictionary)
 
     return make_response(
         jsonify({
-            'user_id': str(user_id),
-            **user_dictionary
+            'user_id': str(user_id.inserted_id),
+            'email': email,
+            'name': name,
+            'creation_date': user_dictionary['creation_date']
         }),
         HTTPStatus.OK
     )
@@ -255,7 +257,7 @@ def log_in() -> Response:
 
     return make_response(
         jsonify({
-            'uer_id': str(user_dictionary['_id'].inserted_id),
+            'uer_id': str(user_dictionary['_id']),
             'name': user_dictionary['name'],
             'email': user_dictionary['email'],
             'creation_date': user_dictionary['creation_date'],
