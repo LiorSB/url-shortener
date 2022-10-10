@@ -33,7 +33,7 @@ export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
 export const postUserCreateTinyUrl = async (userId,originalUrl,setTinyUrlObj) => {
     console.log("start postCreateTinyUrl")
     try {
-        const url = `http://127.0.0.1:5000/shorten/userId`;
+        const url = `http://127.0.0.1:5000/shorten/${userId}`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
