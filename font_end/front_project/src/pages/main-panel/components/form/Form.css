@@ -39,6 +39,7 @@
     gap: 10px;
     border: solid 1px cornflowerblue;
     border-radius: 4px;
+    text-align: left;
     color: cornflowerblue;
 }
 .answer-container{

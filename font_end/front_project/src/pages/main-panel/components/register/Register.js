@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {postSignUp} from "../../../../html-request";
+import '../../../../Animation/tracking-in-contract-bck-top.css'
 
 export const Register = ({setModalStatus, setUser}) => {
     const [name, setName] = useState("")
@@ -10,7 +11,7 @@ export const Register = ({setModalStatus, setUser}) => {
         setModalStatus(0)
         postSignUp(name, email, setUser).then()
     }
-    return <div className="form-container">
+    return <div className="form-container tracking-in-contract-bck-top">
         <span className="form-title-style">Register Page</span>
         <form className="form-style" onSubmit={handleSubmit}>
             <div>

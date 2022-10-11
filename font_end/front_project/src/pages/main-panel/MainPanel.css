@@ -5,6 +5,7 @@
     align-items: center;
     padding-bottom: 30px;
     gap: 30px;
+    overflow: hidden;
 }
 
 .forms-wrapper{
@@ -32,20 +33,4 @@
     border: none;
     cursor: pointer;
     color: cornflowerblue;
-}
-
-.user-url-wrapper{
-    border: 2px solid cornflowerblue;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.user-url-container{
-    border: dashed 1px lightgray;
-    display: flex;
-    flex-direction: column;
-    padding: 8px;
-    text-align: left;
-    gap: 5px;
 }
