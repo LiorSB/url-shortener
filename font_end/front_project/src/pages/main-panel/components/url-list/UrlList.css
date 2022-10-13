@@ -1,0 +1,7 @@
+.user-url-wrapper{
+    border: 2px solid cornflowerblue;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
