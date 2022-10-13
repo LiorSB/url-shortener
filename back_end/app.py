@@ -2,21 +2,15 @@ import pymongo
 from flask import Flask
 from flask_cors import CORS
 from flask_caching import Cache
-from .leader_election import LeaderElection
 
 
-# MONGODB_HOST = 'mongodb://localhost:27017/'
-MONGODB_HOST = 'mongodb://localhost:27117/'
+MONGODB_HOST = 'mongodb://localhost:27017/'
 DB_NAME = 'url_shortener'
 URL_COLLECTION_NAME = 'url'
 USER_COLLECTION_NAME = 'user'
 ZOOKEEPER_ADDRESS = 'localhost:2181'
 ZNODE_NAME = 'views'
 ELECTION_PATH = '/election'
-
-
-leader_election = LeaderElection(ZOOKEEPER_ADDRESS, ZNODE_NAME, ELECTION_PATH)
-leader_election.register()
 
 app = Flask(__name__)
 CORS(app)
