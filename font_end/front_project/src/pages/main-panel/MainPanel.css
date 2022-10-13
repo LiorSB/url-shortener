@@ -1,0 +1,36 @@
+.main-panel-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.forms-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.control-panel{
+    display: flex;
+    gap: 20px;
+    margin-top:80px;
+}
+.button-menu-style{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 30px;
+    border: solid 1px black;
+    padding:16px
+}
+.clickable{
+    cursor: pointer;
+}
+.link{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: cornflowerblue;
+}

@@ -1,0 +1,23 @@
+.user-url-container{
+    border: dashed 1px lightgray;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    text-align: left;
+    gap: 5px;
+    width: 450px;
+}
+.extra-info{
+    border-top: solid black 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-block: 5px;
+    color: cornflowerblue;
+}
+
+.iconStyle{
+    color: black;
+    width: 20px;
+    height: 20px;
+}
