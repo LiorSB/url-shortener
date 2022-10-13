@@ -3,7 +3,7 @@ export const getUserUrls = async (userId,setUserUrl) => {
     console.log("start postCreateTinyUrl")
     console.log(userId,"userId")
     try {
-        const url = `http://127.0.0.1:5000/shorten/${userId.toString()}`;
+        const url = `http://127.0.0.1/shorten/${userId.toString()}`;
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -23,7 +23,7 @@ export const getUserUrls = async (userId,setUserUrl) => {
 export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
     console.log("start postCreateTinyUrl")
     try {
-        const url = `http://127.0.0.1:5000/shorten`;
+        const url = `http://127.0.0.1/shorten`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -44,7 +44,7 @@ export const postCreateTinyUrl = async (originalUrl,setTinyUrlObj) => {
 export const postUserCreateTinyUrl = async (userId,originalUrl,setTinyUrlObj) => {
     console.log("start postCreateTinyUrl")
     try {
-        const url = `http://127.0.0.1:5000/shorten/${userId}`;
+        const url = `http://127.0.0.1/shorten/${userId}`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -66,7 +66,7 @@ export const postUserCreateTinyUrl = async (userId,originalUrl,setTinyUrlObj) =>
 export const postSignUp = async (name,email,setUser) => {
     console.log("start postSignUp")
     try {
-        const url = `http://127.0.0.1:5000/sign_up`;
+        const url = `http://127.0.0.1/sign_up`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -89,7 +89,7 @@ export const postSignUp = async (name,email,setUser) => {
 export const postLogin = async (email,setUser) => {
     console.log("start post log_in")
     try {
-        const url = `http://127.0.0.1:5000/log_in`;
+        const url = `http://127.0.0.1/log_in`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {

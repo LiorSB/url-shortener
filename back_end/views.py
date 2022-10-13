@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 import validators
 from flask import request, make_response, redirect, jsonify, Response
 from .utils import hash_to_specified_length
-from .app import app#, url_collection, user_collection, cache
+from .app import app, url_collection, user_collection, cache
 
 
 MAX_URL_LENGTH = 2048
@@ -74,16 +74,16 @@ def shorten_url(user_id: str = None) -> Response:
 
     # Generate a hash for the short URL until there is one that doesn't exist in the DB.
     # Keep append +1 till success.
-    # while url_dictionary := url_collection.find_one({'_id': url_hash}):
-    #     expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
+    while url_dictionary := url_collection.find_one({'_id': url_hash}):
+        expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
 
-    #     # In case a URL already exists, but it has already expired delete it and break the loop.
-    #     if current_time >= expiration_date:
-    #         url_collection.delete_one(url_dictionary)
-    #         break
+        # In case a URL already exists, but it has already expired delete it and break the loop.
+        if current_time >= expiration_date:
+            url_collection.delete_one(url_dictionary)
+            break
 
-    #     url_hash = hash_to_specified_length(f'{url}{counter}')
-    #     counter += 1
+        url_hash = hash_to_specified_length(f'{url}{counter}')
+        counter += 1
 
     years_till_expired = PREMIUM_YEARS_TILL_EXPIRED if user_id else REGULAR_YEARS_TILL_EXPIRED
     expiration_date = current_time + timedelta(days=years_till_expired)
@@ -96,7 +96,7 @@ def shorten_url(user_id: str = None) -> Response:
         'user_id': user_id
     }
 
-    # url_collection.insert_one(url_dictionary)
+    url_collection.insert_one(url_dictionary)
 
     return make_response(
         jsonify({
@@ -109,54 +109,54 @@ def shorten_url(user_id: str = None) -> Response:
     )
 
 
-# @app.get('/<suffix_hash>')
-# def redirect_url(suffix_hash: str) -> Response:
-#     """
-#     Redirect a short URL to its original URL.
+@app.get('/<suffix_hash>')
+def redirect_url(suffix_hash: str) -> Response:
+    """
+    Redirect a short URL to its original URL.
 
-#     Args:
-#         suffix_hash (str): _id of the URL.
+    Args:
+        suffix_hash (str): _id of the URL.
 
-#     Returns:
-#         Response: In case of success redirect to original URL, else failure message.
-#     """
-#     # In case the url exists in the cache.
-#     if url := cache.get(suffix_hash):
-#         return redirect(
-#             url,
-#             code=HTTPStatus.FOUND
-#         )
+    Returns:
+        Response: In case of success redirect to original URL, else failure message.
+    """
+    # In case the url exists in the cache.
+    if url := cache.get(suffix_hash):
+        return redirect(
+            url,
+            code=HTTPStatus.FOUND
+        )
 
-#     # In case the suffix_hash doesn't exist in the DB, return 404 message.
-#     if not (url_dictionary := url_collection.find_one({'_id': suffix_hash})):
-#         return make_response(
-#             jsonify({
-#                 'error': 'Unable to find URL to redirect to.'
-#             }),
-#             HTTPStatus.NOT_FOUND
-#         )
+    # In case the suffix_hash doesn't exist in the DB, return 404 message.
+    if not (url_dictionary := url_collection.find_one({'_id': suffix_hash})):
+        return make_response(
+            jsonify({
+                'error': 'Unable to find URL to redirect to.'
+            }),
+            HTTPStatus.NOT_FOUND
+        )
 
-#     expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
-#     current_time = datetime.now()
+    expiration_date = datetime.fromisoformat(url_dictionary['expiration_date'])
+    current_time = datetime.now()
 
-#     # In case the URL has expired, return 410 message.
-#     if current_time >= expiration_date:
-#         url_collection.delete_one(url_dictionary)
+    # In case the URL has expired, return 410 message.
+    if current_time >= expiration_date:
+        url_collection.delete_one(url_dictionary)
 
-#         return make_response(
-#             jsonify({
-#                 'error': 'The shortened URL has expired.'
-#             }),
-#             HTTPStatus.GONE
-#         )
+        return make_response(
+            jsonify({
+                'error': 'The shortened URL has expired.'
+            }),
+            HTTPStatus.GONE
+        )
 
-#     url = url_dictionary['original_url']
-#     cache.set(suffix_hash, url)
+    url = url_dictionary['original_url']
+    cache.set(suffix_hash, url)
 
-#     return redirect(
-#         url,
-#         code=HTTPStatus.FOUND
-#     )
+    return redirect(
+        url,
+        code=HTTPStatus.FOUND
+    )
 
 
 @app.post('/sign_up')
@@ -197,13 +197,13 @@ def sign_up() -> Response:
         )
 
     # In case the email already exists in the DB.
-    # if user_collection.find_one({'email': email}):
-    #     return make_response(
-    #         jsonify({
-    #             'error': 'This email has already signed up!'
-    #         }),
-    #         HTTPStatus.CONFLICT
-    #     )
+    if user_collection.find_one({'email': email}):
+        return make_response(
+            jsonify({
+                'error': 'This email has already signed up!'
+            }),
+            HTTPStatus.CONFLICT
+        )
 
     user_dictionary = {
         'email': email,
@@ -211,12 +211,14 @@ def sign_up() -> Response:
         'creation_date': datetime.now().isoformat()
     }
 
-    # user_id = user_collection.insert_one(user_dictionary).inserted_id
+    user_id = user_collection.insert_one(user_dictionary)
 
     return make_response(
         jsonify({
-            'user_id': str(123456789),
-            **user_dictionary
+            'user_id': str(user_id.inserted_id),
+            'email': email,
+            'name': name,
+            'creation_date': user_dictionary['creation_date']
         }),
         HTTPStatus.OK
     )
@@ -245,20 +247,20 @@ def log_in() -> Response:
         )
 
     # In case the email already exists in the DB.
-    # if not (user_dictionary := user_collection.find_one({'email': email})):
-    #     return make_response(
-    #         jsonify({
-    #             'error': 'The email does not exist'
-    #         }),
-    #         HTTPStatus.NOT_FOUND
-    #     )
+    if not (user_dictionary := user_collection.find_one({'email': email})):
+        return make_response(
+            jsonify({
+                'error': 'The email does not exist'
+            }),
+            HTTPStatus.NOT_FOUND
+        )
 
     return make_response(
         jsonify({
-            'user_id': '123456789',
-            'name': 'lior',
-            'email': request_body['email'],
-            'creation_date': 'now',
+            'user_id': str(user_dictionary['_id']),
+            'name': user_dictionary['name'],
+            'email': user_dictionary['email'],
+            'creation_date': user_dictionary['creation_date'],
         }),
         HTTPStatus.OK
     )
@@ -285,33 +287,20 @@ def get_user_urls(user_id: str = None) -> Response:
             HTTPStatus.FORBIDDEN
         )
 
-    # url_dictionaries = url_collection.find({'user_id': user_id})
+    url_dictionaries = url_collection.find({'user_id': user_id})
 
-    # user_urls = [
-    #     {
-    #         'short_url': urljoin(BASE_URL, url_dictionary['_id']),
-    #         'original_url': url_dictionary['original_url'],
-    #         'creation_date': url_dictionary['creation_date'],
-    #         'expiration_date': url_dictionary['expiration_date'],
-    #     } for url_dictionary in url_dictionaries
-    # ]
+    user_urls = [
+        {
+            'short_url': urljoin(BASE_URL, url_dictionary['_id']),
+            'original_url': url_dictionary['original_url'],
+            'creation_date': url_dictionary['creation_date'],
+            'expiration_date': url_dictionary['expiration_date'],
+        } for url_dictionary in url_dictionaries
+    ]
 
     return make_response(
         jsonify({
-            'url_data': [
-                {
-                    "short_url": "http://127.0.0.1/5gDZEF",
-                    "original_url": "https://github.com/LiorSB/url-shortener/tree/feature/backend-db-ds",
-                    "creation_date": "2022-10-08T23:14:47.558657",
-                    "expiration_date": "2027-10-07T23:14:47.558657"
-                },
-                {
-                    "short_url": "http://127.0.0.1/1bqOQw",
-                    "original_url": "https://www.w3schools.com/python/python_mongodb_find.asp",
-                    "creation_date": "2022-10-08T23:56:03.839908",
-                    "expiration_date": "2027-10-07T23:56:03.839908"
-                }
-            ]
+            'url_data': user_urls
         }),
         HTTPStatus.OK
     )
