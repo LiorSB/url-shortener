@@ -1,21 +1,9 @@
 
-
-// export const getUserUrls= async (user,setUserUrl)=>{
-//     try {
-//         const url = `http://127.0.0.1:5000/shorten/${user.user_id}`;
-//         const response = await fetch(url)
-//         const responseJson = await response.json();
-//         console.log(responseJson,"responseJson");
-//         setUserUrl(responseJson)
-//     }catch (err){
-//         console.log(err)
-//     }
-// }
-
 export const getUserUrls = async (userId,setUserUrl) => {
     console.log("start postCreateTinyUrl")
+    console.log(userId,"userId")
     try {
-        const url = `http://127.0.0.1:5000/shorten/${userId}`;
+        const url = `http://127.0.0.1:5000/shorten/${userId.toString()}`;
         const response = await fetch(url, {
             method: 'GET',
             headers: {

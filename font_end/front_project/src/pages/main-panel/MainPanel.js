@@ -22,7 +22,7 @@ export const MainPanel = () => {
         setModalStatus(status)
     }
     const getUserUrl = () => {
-        getUserUrls(user, setUserUrl).then()
+        getUserUrls(user.user_id, setUserUrl).then()
     }
 
     return <div className="main-panel-container">
